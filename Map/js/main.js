@@ -13,6 +13,7 @@ var survey_data;
 $(document).ready(function() {
     loadSurveyData();
     createMap();
+    attachHandlers();
 });
 
 function loadSurveyData() {
@@ -65,7 +66,10 @@ function style_generator(feature) {
 }
 
 function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
+    var layer = e.target;
+    map.fitBounds(layer.getBounds(), {paddingBottomRight: [300, 0]});
+    $(".info").css('display', 'inline-block');
+    console.log(layer.feature.properties.NA_ID)
 }
 
 function onEachFeature(feature, layer) {
@@ -99,3 +103,16 @@ function highlightFeature(e) {
     }
 }
 
+function attachHandlers() {
+    $("#info-collapse-container").click(function(e) {
+        if ($("#info-content").css("display") === "none") {
+            $("#info-content").css("display", "inline-block")
+            $("#info-collapse-container").css('right', '30%')
+        }
+        else {
+            $("#info-content").css("display", "none")
+            $("#info-collapse-container").css('right', '1px')
+        }
+
+    })
+}

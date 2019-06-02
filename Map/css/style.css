@@ -1,12 +1,55 @@
 body{
+    margin: 0;
+}
+
+#map-container{
     height: 100%;
     width: 100%;
     position: absolute;
-    margin: 0;
 }
 
 #map{
     height: 100%;
     width: 100%;
+}
+
+#info-content{
+    height: 100%;
+    width: 30%;
+    position: absolute;
+    right: 0;
+    z-index: 500;
+    background-color: blue;
+    opacity: 0.7;
+}
+
+.info{
+    display: none;
+    height: 100%;
+    position: absolute;
+}
+
+#neighborhood-name{
+    height: 50px;
+    width: 100%;
+    background-color: green;
+}
+
+#info-collapse-container{
+    height: 100%;
+    background-color: yellow;
+    position: absolute;
+    right: 30%;
+    z-index: 600;
+    opacity: 0.7;
+}
+
+#info-collapse{
+    top: 50%;
     position: relative;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
