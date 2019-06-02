@@ -2,7 +2,7 @@ body{
     margin: 0;
 }
 
-#map-container{
+#container{
     height: 100%;
     width: 100%;
     position: absolute;
@@ -11,45 +11,27 @@ body{
 #map{
     height: 100%;
     width: 100%;
+    z-index: 2;
 }
 
-#info-content{
-    height: 100%;
-    width: 30%;
-    position: absolute;
-    right: 0;
-    z-index: 500;
-    background-color: blue;
-    opacity: 0.7;
-}
-
-.info{
-    display: none;
-    height: 100%;
-    position: absolute;
-}
-
-#neighborhood-name{
-    height: 50px;
+#info-container{
+    background-color: darkslategray;
     width: 100%;
-    background-color: green;
-}
-
-#info-collapse-container{
-    height: 100%;
-    background-color: yellow;
+    height: 50%;
     position: absolute;
-    right: 30%;
-    z-index: 600;
-    opacity: 0.7;
+    z-index: 3;
+    bottom: 0;
+    opacity: 0.8;
 }
 
-#info-collapse{
-    top: 50%;
-    position: relative;
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
+#info{
+    padding-left: 10px;
+}
+
+#title{
+    color: gold;
+}
+
+#content{
+    color: whitesmoke;
 }

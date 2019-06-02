@@ -26,7 +26,7 @@ function loadSurveyData() {
 
 function createMap() {
     var mapboxAccessToken = 'pk.eyJ1Ijoiamtvc2VyIiwiYSI6ImNpbWtxNTg2NzAxNGl2cGtnY3k1dGU3aXEifQ.VbZ8l9bL6wsh8dgaI8gTuw';
-    map = L.map('map').setView([43.073051, -89.401230], 12);
+    map = L.map('map').setView([42.995051, -89.421230], 12);
     
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
         id: 'mapbox.dark',
@@ -68,7 +68,6 @@ function style_generator(feature) {
 function zoomToFeature(e) {
     var layer = e.target;
     map.fitBounds(layer.getBounds(), {paddingBottomRight: [300, 0]});
-    $(".info").css('display', 'inline-block');
     console.log(layer.feature.properties.NA_ID)
 }
 
@@ -104,15 +103,5 @@ function highlightFeature(e) {
 }
 
 function attachHandlers() {
-    $("#info-collapse-container").click(function(e) {
-        if ($("#info-content").css("display") === "none") {
-            $("#info-content").css("display", "inline-block")
-            $("#info-collapse-container").css('right', '30%')
-        }
-        else {
-            $("#info-content").css("display", "none")
-            $("#info-collapse-container").css('right', '1px')
-        }
-
-    })
+    console.log("hi")
 }
