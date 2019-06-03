@@ -8,7 +8,7 @@ body{
     position: absolute;
 }
 
-#map{
+#map, .leaflet-container{
     height: 100%;
     width: 100%;
     z-index: 2;

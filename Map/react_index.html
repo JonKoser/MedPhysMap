@@ -1,0 +1,50 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Medical Physics Map</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="An interactive map of places where the nuke folks live.">
+        <meta name="author" content="Jon Koser">
+
+        <!-- Stylesheets -->
+		<link rel="stylesheet" href="leaflet/leaflet.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+        <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div id='container'>
+            <div id="map"></div>
+            <div id="info-container">
+                <div id='info'>
+                    <h1 id='title'>Where the Med Phys Live</h1>
+                    <div id='content'>
+                            <p>There's going to be some react and d3 stuff here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--JavaScript -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script src="leaflet/leaflet.js"></script>
+        <script src="data/na_data.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js"></script>
+        <script src="https://unpkg.com/@babel/standalone"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.6/umd/react.production.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.6/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/react-leaflet/dist/react-leaflet.min.js"></script>
+
+        <script type='text/babel' src="js/main_react.js"></script>
+    </body>
+</html>
