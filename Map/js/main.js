@@ -67,7 +67,9 @@ function style_generator(feature) {
 
 function zoomToFeature(e) {
     var layer = e.target;
-    map.fitBounds(layer.getBounds(), {paddingBottomRight: [300, 0]});
+    var height_offset = window.innerHeight / 2;
+
+    map.fitBounds(layer.getBounds(), {paddingBottomRight: [0, height_offset]});
     console.log(layer.feature.properties.NA_ID)
 }
 
