@@ -14,6 +14,15 @@ class Basemap extends React.Component {
         this.url = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + this.mapboxAccessToken;
     }
 
+    zoomToFeature = e => {
+        var layer = e.target;
+        var height_offset = window.innerHeight / 2;
+        console.log(layer.getBounds())
+        console.log(layer)
+        //map.fitBounds(layer.getBounds(), {paddingBottomRight: [0, height_offset]});
+        //console.log(layer.feature.properties.NA_ID)
+    }
+
    
     render() {
         const position = [this.state.lat, this.state.lng];
@@ -24,27 +33,32 @@ class Basemap extends React.Component {
                     url={this.url}
                     id='mapbox.dark'
                 />
-                <Neighborhoods />
+                <Neighborhoods handleClick={this.zoomToFeature} />
             </Map>
         );
     }
 }
 
 class Neighborhoods extends React.Component {
-    zoomToFeature = (e) => {
-        var layer = e.target;
-        var height_offset = window.innerHeight / 2;
-    
-        map.fitBounds(layer.getBounds(), {paddingBottomRight: [0, height_offset]});
-        console.log(layer.feature.properties.NA_ID)
+    getColor = numPts => {
+        return numPts >= 9 ? ['#7f0000', 'white'] :
+           numPts >= 8  ? ['#b30000', 'white'] :
+           numPts >= 7  ? ['#d7301f', 'white'] :
+           numPts >= 6  ? ['#ef6548', 'white'] :
+           numPts >= 5  ? ['#fc8d59', 'white'] :
+           numPts >= 4  ? ['#fdbb84', 'white'] :
+           numPts >= 3  ? ['#fdd49e', 'white'] :
+           numPts >= 2  ? ['#fee8c8', 'white'] :
+           numPts >= 1  ? ['#fff7ec', 'white'] :
+                          ['None', 'None'] ;
     }
     
-    resetHighlight = (e) => {
+    resetHighlight = e => {
         geojson.resetStyle(e.target);
         e.target.closePopup();
     }
     
-    highlightFeature = (e) => {
+    highlightFeature = e => {
         var layer = e.target;
         var popup = L.popup()
             .setLatLng(layer.getBounds().getCenter())
@@ -62,12 +76,12 @@ class Neighborhoods extends React.Component {
         }
     }
     
-    style_generator = (feature) => {
+    style_generator = feature => {
         return {
-            fillColor: getColor(feature.properties.NUMPOINTS)[0],
+            fillColor: this.getColor(feature.properties.NUMPOINTS)[0],
             weight: 1,
             opacity: 0.7,
-            color: getColor(feature.properties.NUMPOINTS)[1],
+            color: this.getColor(feature.properties.NUMPOINTS)[1],
             dashArray: '3',
             fillOpacity: 0.7
         };
@@ -78,22 +92,10 @@ class Neighborhoods extends React.Component {
             <GeoJSON 
                 data={na_data}
                 style={this.style_generator}
+                onClick={this.props.handleClick}
             />
         )
     }
-}
-
-function getColor(numPts) {
-    return numPts >= 9 ? ['#7f0000', 'white'] :
-       numPts >= 8  ? ['#b30000', 'white'] :
-       numPts >= 7  ? ['#d7301f', 'white'] :
-       numPts >= 6  ? ['#ef6548', 'white'] :
-       numPts >= 5  ? ['#fc8d59', 'white'] :
-       numPts >= 4  ? ['#fdbb84', 'white'] :
-       numPts >= 3  ? ['#fdd49e', 'white'] :
-       numPts >= 2  ? ['#fee8c8', 'white'] :
-       numPts >= 1  ? ['#fff7ec', 'white'] :
-                      ['None', 'None'] ;
 }
 
 window.ReactDOM.render(<Basemap />, document.getElementById('map'))
