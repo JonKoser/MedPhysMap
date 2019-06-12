@@ -17,23 +17,25 @@ class Basemap extends React.Component {
     zoomToFeature = e => {
         var layer = e.target;
         var height_offset = window.innerHeight / 2;
-        console.log(layer.getBounds())
-        console.log(layer)
-        //map.fitBounds(layer.getBounds(), {paddingBottomRight: [0, height_offset]});
-        //console.log(layer.feature.properties.NA_ID)
+        this.setState({boundsOptions: {paddingBottomRight: [0, height_offset]}})
+        this.setState({bounds: layer.getBounds()})
+        // Eventually, I'll use this to update charts and things
+        console.log(layer.feature.properties.NA_ID)
     }
 
-   
     render() {
         const position = [this.state.lat, this.state.lng];
         return (
-            <Map center={position} zoom={this.state.zoom}>
+            <Map bounds={this.state.bounds}
+                boundsOptions={this.state.boundsOptions}
+                center={position} 
+                zoom={this.state.zoom}>
                 <TileLayer
                     attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
                     url={this.url}
                     id='mapbox.dark'
                 />
-                <Neighborhoods handleClick={this.zoomToFeature} />
+                <Neighborhoods zoomToFeature={this.zoomToFeature} />
             </Map>
         );
     }
@@ -52,18 +54,22 @@ class Neighborhoods extends React.Component {
            numPts >= 1  ? ['#fff7ec', 'white'] :
                           ['None', 'None'] ;
     }
-    
+
+    onEachFeature = (feature, layer) => {
+        layer.on({
+            mouseover: this.highlightFeature,
+            mouseout: this.resetHighlight,
+            click: this.props.zoomToFeature
+        });
+    }
+
     resetHighlight = e => {
-        geojson.resetStyle(e.target);
-        e.target.closePopup();
+        var layer = e.target;
+        layer.setStyle(this.style_generator(layer.feature))
     }
     
     highlightFeature = e => {
         var layer = e.target;
-        var popup = L.popup()
-            .setLatLng(layer.getBounds().getCenter())
-            .setContent(layer.feature.properties.NEIGHB_NAM)
-            .openOn(map);
     
         layer.setStyle({
             weight: 5,
@@ -92,7 +98,7 @@ class Neighborhoods extends React.Component {
             <GeoJSON 
                 data={na_data}
                 style={this.style_generator}
-                onClick={this.props.handleClick}
+                onEachFeature={this.onEachFeature}
             />
         )
     }
